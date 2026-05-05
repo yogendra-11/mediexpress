@@ -44,4 +44,9 @@ export const getOrder = (id) => API.get(`/orders/${id}`);
 export const updateOrderStatus = (id, status) =>
   API.patch(`/orders/${id}/status`, { status });
 
+// Payments
+export const createPaymentOrder = (data) => API.post('/payments/create-order', data);
+export const verifyPayment = (data) => API.post('/payments/verify', data);
+export const getPaymentKey = () => API.get('/payments/key');
+
 export default API;

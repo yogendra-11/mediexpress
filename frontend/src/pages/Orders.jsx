@@ -87,7 +87,17 @@ const Orders = () => {
                     {order.pharmacyId && <p className="text-practo-gray">Pharmacy: <span className="text-practo-navy font-medium">{order.pharmacyId.name}</span></p>}
                     {order.deliveryPartnerId && <p className="text-practo-gray">Delivery: <span className="text-practo-navy font-medium">{order.deliveryPartnerId.name}</span></p>}
                     {order.deliveryAddress && <p className="text-practo-gray">📍 {order.deliveryAddress}</p>}
-                    {order.totalAmount > 0 && <p className="text-practo-gray">Amount: <span className="text-practo-green font-bold">₹{order.totalAmount}</span></p>}
+                    {order.totalAmount > 0 && (
+                      <p className="text-practo-gray flex items-center gap-2">
+                        Amount: <span className="text-practo-green font-bold">₹{order.totalAmount}</span>
+                        {order.paymentStatus === 'paid' && <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">✅ Paid</span>}
+                        {order.paymentStatus === 'cod' && <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full">💵 COD</span>}
+                        {order.paymentStatus === 'unpaid' && <span className="px-2 py-0.5 bg-red-100 text-red-600 text-xs font-semibold rounded-full">Unpaid</span>}
+                      </p>
+                    )}
+                    {order.paymentMethod && order.paymentMethod !== 'none' && (
+                      <p className="text-practo-gray text-xs">Payment: <span className="text-practo-navy font-medium capitalize">{order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod === 'upi' ? '📱 UPI Transfer' : 'Online (Razorpay)'}</span>{order.paymentId && <span className="text-gray-400 ml-1">#{order.paymentId}</span>}</p>
+                    )}
                   </div>
                   {order.prescriptionId?.medicines?.length > 0 && (
                     <div className="mt-3">

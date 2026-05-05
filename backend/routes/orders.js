@@ -8,7 +8,7 @@ const router = express.Router();
 // POST /api/orders - Create order from prescription OR direct medicine purchase
 router.post('/', protect, async (req, res) => {
   try {
-    const { prescriptionId, deliveryAddress, totalAmount, directMedicines } = req.body;
+    const { prescriptionId, deliveryAddress, totalAmount, directMedicines, paymentMethod, paymentStatus, paymentId } = req.body;
 
     let userId = req.user._id;
 
@@ -28,6 +28,9 @@ router.post('/', protect, async (req, res) => {
       deliveryAddress: deliveryAddress || '',
       totalAmount: totalAmount || 0,
       directMedicines: directMedicines || [],
+      paymentMethod: paymentMethod || 'none',
+      paymentStatus: paymentStatus || 'unpaid',
+      paymentId: paymentId || '',
       status: 'pending',
     });
 
